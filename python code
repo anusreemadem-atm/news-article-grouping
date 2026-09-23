@@ -1,0 +1,175 @@
+ AI INTERNSHIP PROJECT DOCUMENTATION
+
+Project 9: News Article Grouping
+
+ Project Title
+
+**News Article Grouping Using NLP and Machine Learning**
+
+## CODE 1: Create News Dataset
+
+```python
+import pandas as pd
+
+data = {
+    "article": [
+        "The cricket team won the match after excellent batting",
+        "The football team scored three goals in the final",
+        "The government announced a new economic policy",
+        "Stock markets increased after positive business news",
+        "Artificial intelligence is changing technology",
+        "New software technology improves computer performance"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+```
+
+### Sample Output
+
+```text
+                                             article
+0  The cricket team won the match after excellent...
+1  The football team scored three goals in the final
+2  The government announced a new economic policy
+3  Stock markets increased after positive business...
+4  Artificial intelligence is changing technology
+5  New software technology improves computer perf...
+```
+
+---
+
+## CODE 2: Convert Text Using TF-IDF
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer(
+    stop_words="english"
+)
+
+X = vectorizer.fit_transform(df["article"])
+
+print("TF-IDF Matrix Shape:", X.shape)
+```
+
+### Output
+
+```text
+TF-IDF Matrix Shape: (6, 24)
+```
+
+This means six articles were converted into a numerical matrix containing 24 text features.
+
+---
+
+## CODE 3: Apply K-Means
+
+```python
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(
+    n_clusters=3,
+    random_state=42,
+    n_init=10
+)
+
+df["Cluster"] = kmeans.fit_predict(X)
+
+print(df[["article", "Cluster"]])
+```
+
+### Sample Output
+
+```text
+Article 0 → Cluster 1
+Article 1 → Cluster 1
+Article 2 → Cluster 0
+Article 3 → Cluster 0
+Article 4 → Cluster 2
+Article 5 → Cluster 2
+```
+
+Possible interpretation:
+
+```text
+Cluster 0 → Business/Economy
+Cluster 1 → Sports
+Cluster 2 → Technology
+```
+
+---
+
+## CODE 4: Display Important Words
+
+```python
+terms = vectorizer.get_feature_names_out()
+
+for i, center in enumerate(kmeans.cluster_centers_):
+    top_words = center.argsort()[-5:][::-1]
+
+    print("\nCluster", i)
+    print("Important words:")
+
+    for index in top_words:
+        print(terms[index])
+```
+
+### Sample Output
+
+```text
+Cluster 0
+Important words:
+business
+markets
+economic
+government
+stock
+
+Cluster 1
+Important words:
+team
+match
+football
+cricket
+goals
+
+Cluster 2
+Important words:
+technology
+software
+artificial
+computer
+performance
+```
+
+---
+
+## CODE 5: Visualize News Clusters
+
+```python
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+pca = PCA(n_components=2)
+
+X_dense = X.toarray()
+reduced = pca.fit_transform(X_dense)
+
+plt.scatter(
+    reduced[:, 0],
+    reduced[:, 1],
+    c=df["Cluster"]
+)
+
+plt.xlabel("Component 1")
+plt.ylabel("Component 2")
+plt.title("News Article Clusters")
+plt.show()
+```
+
+### Output
+
+A 2D scatter plot displays the news articles as points. Articles belonging to similar clusters appear close to each other.
