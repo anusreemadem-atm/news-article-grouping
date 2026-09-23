@@ -1,12 +1,12 @@
-# AI INTERNSHIP PROJECT DOCUMENTATION
+ AI INTERNSHIP PROJECT DOCUMENTATION
 
-## Project 9: News Article Grouping
+Project 9: News Article Grouping
 
-### 1. Project Title
+ 1. Project Title
 
 **News Article Grouping Using NLP and Machine Learning**
 
-### 2. Introduction
+ 2. Introduction
 
 Every day, a large number of news articles are published on different topics such as politics, sports, technology, business and entertainment. Manually organizing these articles is time-consuming.
 
@@ -14,11 +14,11 @@ Natural Language Processing (NLP) and machine learning can automatically analyze
 
 This project uses **TF-IDF** to convert text into numerical features and **K-Means clustering** to group similar news articles.
 
-### 3. Problem Statement
+ 3. Problem Statement
 
 To develop an AI-based system that automatically groups news articles according to their textual similarity using Natural Language Processing and clustering.
 
-### 4. Objectives
+ 4. Objectives
 
 * Collect news articles.
 * Clean and preprocess text.
@@ -28,7 +28,7 @@ To develop an AI-based system that automatically groups news articles according 
 * Identify important words in each cluster.
 * Visualize the groups.
 
-### 5. Technologies Used
+ 5. Technologies Used
 
 * Python
 * Pandas
@@ -39,7 +39,7 @@ To develop an AI-based system that automatically groups news articles according 
 * TF-IDF
 * K-Means
 
-### 6. Workflow
+ 6. Workflow
 
 **News Dataset → Text Cleaning → Preprocessing → TF-IDF → Feature Matrix → K-Means → Important Keywords → Visualization → Topic Interpretation**
 
